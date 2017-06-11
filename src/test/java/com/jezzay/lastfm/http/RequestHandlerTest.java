@@ -17,9 +17,9 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 @RunWith(MockitoJUnitRunner.class)
-public class LastFmHttpConnectionHandlerTest {
+public class RequestHandlerTest {
 
-    private LastFmHttpConnectionHandler connectionHandler;
+    private RequestHandler requestHandler;
     @Mock
     private LastFmApiDispatcher dispatcher;
 
@@ -30,24 +30,24 @@ public class LastFmHttpConnectionHandlerTest {
 
     @Before
     public void setUp() throws Exception {
-        this.connectionHandler = new LastFmHttpConnectionHandler(null, dispatcher);
+        this.requestHandler = new RequestHandler(dispatcher);
     }
 
     @Test
-    public void connectionHandler_writes_error_response_when_not_an_api_request() throws IOException {
+    public void handleRequest_writes_error_response_when_not_an_api_request() throws IOException {
         given(reader.readLine()).willReturn("GET /index HTTP/1.1\n")
                 .willReturn("Connection: keep-alive")
                 .willReturn("");
-        connectionHandler.handleRequest(reader, writer);
+        requestHandler.handleRequest(reader, writer);
         verify(writer).write("HTTP/1.1 404 Not Found \n Content-Type: application/json \n Content-Length: 0 \n\n ");
     }
 
     @Test
-    public void connectionHandler_dispatches_request_response_when_request_is_an_api_request() throws IOException {
+    public void handleRequest_dispatches_request_response_when_request_is_an_api_request() throws IOException {
         given(reader.readLine()).willReturn("GET /api/geo/top-artist/Australia/ HTTP/1.1\n")
                 .willReturn("Connection: keep-alive")
                 .willReturn("");
-        connectionHandler.handleRequest(reader, writer);
+        requestHandler.handleRequest(reader, writer);
         verify(dispatcher).dispatchRequest(any(IncomingApiHttpRequest.class));
     }
 

@@ -9,16 +9,18 @@ import java.net.ServerSocket;
  */
 public class LastFmAPIServer {
 
+    private final RequestHandler requestHandler;
     private int port = 8080;
 
     public LastFmAPIServer(int port) {
         this.port = port;
+        this.requestHandler = new RequestHandler();
     }
 
     public void acceptConnections() throws IOException {
         try (ServerSocket serverSocket = new ServerSocket(this.port)) {
             while (true) {
-                new Thread(new LastFmHttpConnectionHandler(serverSocket.accept())).start();
+                new Thread(new HttpConnectionHandler(serverSocket.accept(), requestHandler)).start();
             }
         }
     }

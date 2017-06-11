@@ -7,37 +7,17 @@ import com.jezzay.lastfm.http.util.HttpResponseUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.net.Socket;
 
-public class LastFmHttpConnectionHandler implements Runnable {
-    private final Socket socket;
+public class RequestHandler {
     private final LastFmApiDispatcher apiDispatcher;
 
-    LastFmHttpConnectionHandler(Socket socket) {
-        this.socket = socket;
+    public RequestHandler() {
         this.apiDispatcher = new LastFmApiDispatcher();
     }
 
-    LastFmHttpConnectionHandler(Socket socket, LastFmApiDispatcher apiDispatcher) {
-        this.socket = socket;
-        this.apiDispatcher = apiDispatcher;
-    }
-
-    @Override
-    public void run() {
-        try (
-                BufferedReader reader
-                        = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-
-                OutputStreamWriter writer
-                        = new OutputStreamWriter(this.socket.getOutputStream())
-        ) {
-            handleRequest(reader, writer);
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
+    RequestHandler(LastFmApiDispatcher dispatcher) {
+        this.apiDispatcher = dispatcher;
     }
 
     void handleRequest(BufferedReader reader, OutputStreamWriter writer) throws IOException {
@@ -79,5 +59,4 @@ public class LastFmHttpConnectionHandler implements Runnable {
             return HttpResponseUtil.createInternalServerErrorHttpResponse(String.format("{\"error\":\"%s\"}", e.getClass().getName()));
         }
     }
-
 }
