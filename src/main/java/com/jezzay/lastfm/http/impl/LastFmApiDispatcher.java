@@ -2,6 +2,7 @@ package com.jezzay.lastfm.http.impl;
 
 
 import com.jezzay.lastfm.controller.ApiController;
+import com.jezzay.lastfm.controller.impl.TopArtistByGeoController;
 import com.jezzay.lastfm.domain.ApiResponse;
 import com.jezzay.lastfm.domain.IncomingApiHttpRequest;
 import com.jezzay.lastfm.http.ApiRequestDispatcher;
@@ -15,7 +16,7 @@ public class LastFmApiDispatcher implements ApiRequestDispatcher {
     private Map<Pattern, ApiController> apiMapping = new HashMap<>();
 
     public LastFmApiDispatcher() {
-        this.apiMapping.put(Pattern.compile("^/api/geo/top-artist/([a-zA-Z]*)/$"), null);
+        this.apiMapping.put(Pattern.compile("^/api/geo/top-artist/([a-zA-Z]*)/$"), new TopArtistByGeoController());
     }
 
     @Override

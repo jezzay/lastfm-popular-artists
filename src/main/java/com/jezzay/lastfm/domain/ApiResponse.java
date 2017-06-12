@@ -10,6 +10,12 @@ public class ApiResponse {
         return apiResponse;
     }
 
+    public static ApiResponse createSuccess(Object responseData){
+        ApiResponse apiResponse = new ApiResponse();
+        apiResponse.setResponseData(responseData);
+        return apiResponse;
+    }
+
     public boolean isSuccessful() {
         return this.error == null;
     }
