@@ -5,15 +5,18 @@ import java.util.Map;
 
 public class IncomingApiHttpRequest {
     private Map<String, String> requestHeaders = new HashMap<>();
-    private String path;
+    private String path = "";
 
     public void processPath(String httpRequestLine) {
         // GET <PATH> HTTP/1.1 -> <PATH>
-        String[] pathAndHttpVersion = httpRequestLine.split("HTTP");
-        String methodAndPath = pathAndHttpVersion[0];
-        this.path = methodAndPath.substring(
-                methodAndPath.indexOf("/"),
-                methodAndPath.length()).trim();
+        if (httpRequestLine != null) {
+            String[] pathAndHttpVersion = httpRequestLine.split("HTTP");
+            String methodAndPath = pathAndHttpVersion[0];
+            this.path = methodAndPath.substring(
+                    methodAndPath.indexOf("/"),
+                    methodAndPath.length()).trim();
+        }
+
     }
 
     public void processHeader(String httpRequestHeader) {
