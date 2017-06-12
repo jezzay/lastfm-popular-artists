@@ -8,10 +8,15 @@ public final class HttpResponseUtil {
     private static final String HTTP_JSON_CONTENT_TYPE = "Content-Type: application/json";
     private static final String HTTP_CONTENT_LENGTH_TEMPLATE = "Content-Length: %s";
 
-    private HttpResponseUtil(){}
+    private HttpResponseUtil() {
+    }
 
     public static String createSuccessHttpResponse(String jsonData) {
         return createHttpResponse(HTTP_OK, jsonData);
+    }
+
+    public static String createNotFoundHttpResponse() {
+        return createHttpResponse(HTTP_NOT_FOUND, "");
     }
 
     public static String createNotFoundHttpResponse(String error) {
@@ -20,10 +25,6 @@ public final class HttpResponseUtil {
 
     public static String createInternalServerErrorHttpResponse(String error) {
         return createHttpResponse(HTTP_INTERNAL_SERVER_FAILURE, error);
-    }
-
-    public static String createNotFoundHttpResponse() {
-        return createHttpResponse(HTTP_NOT_FOUND, "");
     }
 
     private static String createHttpStatus(String status) {

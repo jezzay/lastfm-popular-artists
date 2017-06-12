@@ -20,7 +20,8 @@ public class LastFmAPIServer {
     public void acceptConnections() throws IOException {
         try (ServerSocket serverSocket = new ServerSocket(this.port)) {
             while (true) {
-                new Thread(new HttpConnectionHandler(serverSocket.accept(), requestHandler)).start();
+                new Thread(new HttpConnectionHandler(serverSocket.accept(), requestHandler))
+                        .start();
             }
         }
     }

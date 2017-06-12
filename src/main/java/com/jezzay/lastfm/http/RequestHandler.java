@@ -1,5 +1,7 @@
 package com.jezzay.lastfm.http;
 
+import static java.lang.String.format;
+
 import com.jezzay.lastfm.domain.ApiResponse;
 import com.jezzay.lastfm.domain.IncomingApiHttpRequest;
 import com.jezzay.lastfm.http.impl.LastFmApiDispatcher;
@@ -56,7 +58,8 @@ public class RequestHandler {
             return HttpResponseUtil.createSuccessHttpResponse(response.resultAsJson());
         } catch (Exception e) {
             System.err.println(e.getMessage());
-            return HttpResponseUtil.createInternalServerErrorHttpResponse(String.format("{\"error\":\"%s\"}", e.getClass().getName()));
+            return HttpResponseUtil.createInternalServerErrorHttpResponse(
+                    format("{\"error\":\"%s\"}", e.getClass().getName()));
         }
     }
 }
