@@ -7,7 +7,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.List;
 
-public interface TopArtistByGeoService {
+public interface GeoService {
     List<Artist> findTopArtistsFor(String country, String page) throws IOException,
             ParserConfigurationException, SAXException;
 }

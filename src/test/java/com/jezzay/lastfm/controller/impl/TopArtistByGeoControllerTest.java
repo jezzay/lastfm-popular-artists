@@ -4,7 +4,7 @@ import static org.mockito.Mockito.verify;
 
 import com.jezzay.lastfm.domain.ApiResponse;
 import com.jezzay.lastfm.domain.IncomingApiHttpRequest;
-import com.jezzay.lastfm.service.TopArtistByGeoService;
+import com.jezzay.lastfm.service.GeoService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +21,7 @@ public class TopArtistByGeoControllerTest {
 
     private TopArtistByGeoController controller;
     @Mock
-    private TopArtistByGeoService geoService;
+    private GeoService geoService;
 
     @Before
     public void setUp() throws Exception {

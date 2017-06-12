@@ -1,4 +1,4 @@
-package com.jezzay.lastfm.service;
+package com.jezzay.lastfm.service.impl;
 
 import com.jezzay.lastfm.domain.Artist;
 import org.w3c.dom.Document;
@@ -14,33 +14,16 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
-public class TopArtistByGeoImpl implements TopArtistByGeoService {
-
-    @Override
-    public List<Artist> findTopArtistsFor(String country, String page) throws IOException,
-            ParserConfigurationException, SAXException {
-        String apiKey = System.getenv("LAST_FM_API_KEY");
-        List<Artist> results = new ArrayList<>();
-
-        InputStream inputStream = connectToEndpoint(LastFmApiUtil.createGeoTopArtistUrl(country, page, apiKey));
-        Document document = parseXMLResponse(inputStream);
-
-        Node topArtists = document.getElementsByTagName("topartists").item(0);
-        NodeList topArtistsChildNodes = topArtists.getChildNodes();
-        for (int i = 0; i < topArtistsChildNodes.getLength(); i++) {
-            Node artistNode = topArtistsChildNodes.item(i);
-            if (artistNode.getNodeName().equals("artist")) {
-                NodeList artistElementsList = artistNode.getChildNodes();
-                results.add(processArtistNode(artistElementsList));
-            }
-        }
-        return results;
+public abstract class LastFmApiServiceBase {
+    InputStream connectToEndpoint(String url) throws IOException {
+        URL endpoint = new URL(url);
+        HttpsURLConnection urlConnection = (HttpsURLConnection) endpoint.openConnection();
+        urlConnection.connect();
+        return urlConnection.getInputStream();
     }
 
-    private Document parseXMLResponse(InputStream inputStream) throws ParserConfigurationException,
+    Document parseXMLResponse(InputStream inputStream) throws ParserConfigurationException,
             SAXException, IOException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setIgnoringComments(true);
@@ -48,14 +31,7 @@ public class TopArtistByGeoImpl implements TopArtistByGeoService {
         return documentBuilder.parse(inputStream);
     }
 
-    private InputStream connectToEndpoint(String url) throws IOException {
-        URL endpoint = new URL(url);
-        HttpsURLConnection urlConnection = (HttpsURLConnection) endpoint.openConnection();
-        urlConnection.connect();
-        return urlConnection.getInputStream();
-    }
-
-    private Artist processArtistNode(NodeList artistNodeList) {
+    Artist processArtistNode(NodeList artistNodeList) {
         Artist artist = new Artist();
         for (int i = 0; i < artistNodeList.getLength(); i++) {
             Node node = artistNodeList.item(i);
