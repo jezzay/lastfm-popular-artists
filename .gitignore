@@ -29,3 +29,23 @@ hs_err_pid*
 
 # IntelliJ
 /out/
+
+# dependencies
+lastfm-fe/node_modules
+
+# testing
+lastfm-fe/coverage
+
+# production
+lastfm-fe/build
+
+# misc
+.DS_Store
+lastfm-fe/.env.local
+lastfm-fe/.env.development.local
+lastfm-fe/.env.test.local
+lastfm-fe/.env.production.local
+
+lastfm-fe/npm-debug.log*
+lastfm-fe/yarn-debug.log*
+lastfm-fe/yarn-error.log*

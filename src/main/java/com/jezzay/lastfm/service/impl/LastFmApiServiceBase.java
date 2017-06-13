@@ -57,6 +57,8 @@ abstract class LastFmApiServiceBase {
                             artist.setImageURL(textContent);
                         }
                         break;
+                    default:
+                        break;
                 }
             }
         }

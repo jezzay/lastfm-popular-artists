@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.util.List;
 
 public interface ArtistService {
+
     Artist findArtist(String mbid) throws IOException, ParserConfigurationException, SAXException;
-    List<ArtistTrack> findArtistTopTracks(String mbid, String pageNumber) throws IOException, ParserConfigurationException, SAXException;
+
+    List<ArtistTrack> findArtistTopTracks(String mbid, String pageNumber)
+            throws IOException, ParserConfigurationException, SAXException;
 }

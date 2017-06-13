@@ -63,4 +63,5 @@ public class ArtistController implements ApiController {
             return ApiResponse.createFailure("Unable to retrieve results for " + mbid);
         }
     }
+
 }
