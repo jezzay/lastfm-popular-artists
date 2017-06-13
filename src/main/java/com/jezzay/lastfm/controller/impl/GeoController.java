@@ -5,7 +5,7 @@ import com.jezzay.lastfm.domain.ApiResponse;
 import com.jezzay.lastfm.domain.Artist;
 import com.jezzay.lastfm.domain.IncomingApiHttpRequest;
 import com.jezzay.lastfm.service.GeoService;
-import com.jezzay.lastfm.service.impl.GeoServiceBaseImpl;
+import com.jezzay.lastfm.service.impl.GeoServiceImpl;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -14,15 +14,15 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TopArtistByGeoController implements ApiController {
+public class GeoController implements ApiController {
 
     private final GeoService topArtistService;
 
-    public TopArtistByGeoController() {
-        this.topArtistService = new GeoServiceBaseImpl();
+    public GeoController() {
+        this.topArtistService = new GeoServiceImpl();
     }
 
-    TopArtistByGeoController(GeoService topArtistService) {
+    GeoController(GeoService topArtistService) {
         this.topArtistService = topArtistService;
     }
 

@@ -15,7 +15,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-public abstract class LastFmApiServiceBase {
+abstract class LastFmApiServiceBase {
+
     InputStream connectToEndpoint(String url) throws IOException {
         URL endpoint = new URL(url);
         HttpsURLConnection urlConnection = (HttpsURLConnection) endpoint.openConnection();

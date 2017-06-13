@@ -14,7 +14,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GeoServiceBaseImpl extends LastFmApiServiceBase implements GeoService {
+public class GeoServiceImpl extends LastFmApiServiceBase implements GeoService {
 
     @Override
     public List<Artist> findTopArtistsFor(String country, String page) throws IOException,
