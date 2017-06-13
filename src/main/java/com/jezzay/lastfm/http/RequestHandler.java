@@ -57,6 +57,7 @@ public class RequestHandler {
             }
             return HttpResponseUtil.createSuccessHttpResponse(response.resultAsJson());
         } catch (Exception e) {
+            e.printStackTrace();
             System.err.println(e.getMessage());
             return HttpResponseUtil.createInternalServerErrorHttpResponse(
                     format("{\"error\":\"%s\"}", e.getClass().getName()));
