@@ -2,7 +2,7 @@
 
 lastfm-popular-artists is an API server that makes information from Last.fm available through the following APIs
 
-A React front end can be found in the [lastfm-feCreate React App](lastfm-fe) directory
+A React front end can be found in the [lastfm-fe](lastfm-fe) directory
 
 # API Endpoints
 
