@@ -42,10 +42,10 @@ class ArtistGeoLookup extends Component {
             Api.topArtistByCountry(this.state.country, this.state.pageNumber).then((res) => {
                 this.setState({results: res.data, statusMsg: ''});
             }, (err) => {
-                console.error(err.response.then((reason) => {
+                err.response.then((reason) => {
                     console.log(`Failed because of ${reason.error}`);
                     this.setState({results: [], statusMsg: reason.error})
-                }));
+                });
             });
         } else {
             this.setState({statusMsg: 'Please enter a full country name'});

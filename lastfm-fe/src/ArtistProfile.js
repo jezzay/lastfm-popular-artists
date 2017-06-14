@@ -16,10 +16,10 @@ class ArtistProfile extends Component {
         Api.artistTopTracks(this.props.mbid, this.state.pageNumber).then((res) => {
             this.setState({results: res.data, statusMsg: ''});
         }, (err) => {
-            console.error(err.response.then((reason) => {
+            err.response.then((reason) => {
                 console.log(`Failed because of ${reason.error}`);
                 this.setState({results: [], statusMsg: reason.error})
-            }));
+            });
         });
     }
 
