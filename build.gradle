@@ -10,6 +10,12 @@ repositories {
     mavenCentral()
 }
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.jezzay.lastfm.Main'
+    }
+}
+
 test {
     exclude { it.file.name.contains('IntegrationTest') }
 }

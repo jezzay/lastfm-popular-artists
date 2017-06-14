@@ -20,7 +20,7 @@ import java.net.URL;
 abstract class LastFmApiServiceBase {
 
     String apiKey() {
-        return System.getenv("LAST_FM_API_KEY");
+        return System.getenv("LAST_FM_REMOTE_API_KEY");
     }
 
     InputStream connectToEndpoint(String url) throws IOException {
