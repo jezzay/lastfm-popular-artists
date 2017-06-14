@@ -18,9 +18,9 @@ public class LastFmApiDispatcher implements ApiRequestDispatcher {
 
     public LastFmApiDispatcher() {
         ArtistController artistController = new ArtistController();
-        this.apiMapping.put(Pattern.compile("^/api/geo/top-artist/([a-zA-Z]*)/([0-9])/$"), new GeoController());
+        this.apiMapping.put(Pattern.compile("^/api/geo/top-artist/([a-zA-Z]*)/([0-9].*)/$"), new GeoController());
         this.apiMapping.put(Pattern.compile("^/api/artist/([a-zA-Z0-9-]*)/$"), artistController);
-        this.apiMapping.put(Pattern.compile("^/api/artist/([a-zA-Z0-9-]*)/top-tracks/([0-9])/$"), artistController);
+        this.apiMapping.put(Pattern.compile("^/api/artist/([a-zA-Z0-9-]*)/top-tracks/([0-9].*)/$"), artistController);
     }
 
     @Override
