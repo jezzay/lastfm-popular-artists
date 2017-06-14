@@ -4,6 +4,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
+import com.jezzay.lastfm.domain.ApiResponse;
 import com.jezzay.lastfm.domain.IncomingApiHttpRequest;
 import com.jezzay.lastfm.http.impl.LastFmApiDispatcher;
 import org.junit.Before;
@@ -47,6 +48,7 @@ public class RequestHandlerTest {
         given(reader.readLine()).willReturn("GET /api/geo/top-artist/Australia/ HTTP/1.1\n")
                 .willReturn("Connection: keep-alive")
                 .willReturn("");
+        given(dispatcher.dispatchRequest(any())).willReturn(ApiResponse.createSuccess("It worked"));
         requestHandler.handleRequest(reader, writer);
         verify(dispatcher).dispatchRequest(any(IncomingApiHttpRequest.class));
     }

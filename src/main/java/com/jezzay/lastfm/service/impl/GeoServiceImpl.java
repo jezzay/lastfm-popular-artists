@@ -19,10 +19,9 @@ public class GeoServiceImpl extends LastFmApiServiceBase implements GeoService {
     @Override
     public List<Artist> findTopArtistsFor(String country, String page) throws IOException,
             ParserConfigurationException, SAXException {
-        String apiKey = System.getenv("LAST_FM_API_KEY");
         List<Artist> results = new ArrayList<>();
 
-        InputStream inputStream = connectToEndpoint(LastFmApiUtil.createGeoTopArtistUrl(country, page, apiKey));
+        InputStream inputStream = connectToEndpoint(LastFmApiUtil.createGeoTopArtistUrl(country, page, apiKey()));
         Document document = parseXMLResponse(inputStream);
 
         Node topArtists = document.getElementsByTagName("topartists").item(0);

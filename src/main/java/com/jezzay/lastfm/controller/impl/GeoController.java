@@ -35,13 +35,7 @@ public class GeoController implements ApiController {
             try {
                 List<Artist> artists = topArtistService.findTopArtistsFor(country, page);
                 if (!artists.isEmpty()) {
-                    StringBuilder resultJson = new StringBuilder();
-                    for (Artist artist : artists) {
-                        resultJson.append(artist.toString()).append(",");
-                    }
-                    // remove trailing ,
-                    resultJson.deleteCharAt(resultJson.length() - 1);
-                    return ApiResponse.createSuccess("{\"data\":[ " + resultJson.toString() + "]}");
+                    return ApiResponse.createSuccess(artists);
                 }
                 return ApiResponse.createFailure("No results found for country " + country);
             } catch (IOException | ParserConfigurationException | SAXException e) {

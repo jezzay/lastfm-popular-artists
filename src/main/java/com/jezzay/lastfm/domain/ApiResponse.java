@@ -1,5 +1,7 @@
 package com.jezzay.lastfm.domain;
 
+import java.util.List;
+
 public class ApiResponse {
     private Object responseData;
     private String error;
@@ -10,10 +12,20 @@ public class ApiResponse {
         return apiResponse;
     }
 
-    public static ApiResponse createSuccess(Object responseData){
+    public static ApiResponse createSuccess(Object responseData) {
         ApiResponse apiResponse = new ApiResponse();
         apiResponse.setResponseData(responseData);
         return apiResponse;
+    }
+
+    public static ApiResponse createSuccess(List responseData) {
+        StringBuilder resultJson = new StringBuilder();
+        for (Object data : responseData) {
+            resultJson.append(data.toString()).append(",");
+        }
+        // remove trailing ,
+        resultJson.deleteCharAt(resultJson.length() - 1);
+        return ApiResponse.createSuccess("{\"data\":[ " + resultJson.toString() + "]}");
     }
 
     public boolean isSuccessful() {

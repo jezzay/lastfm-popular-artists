@@ -1,5 +1,7 @@
 package com.jezzay.lastfm.service.impl;
 
+import static org.w3c.dom.Node.ELEMENT_NODE;
+
 import com.jezzay.lastfm.domain.Artist;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -16,6 +18,10 @@ import java.io.InputStream;
 import java.net.URL;
 
 abstract class LastFmApiServiceBase {
+
+    String apiKey() {
+        return System.getenv("LAST_FM_API_KEY");
+    }
 
     InputStream connectToEndpoint(String url) throws IOException {
         URL endpoint = new URL(url);
@@ -36,7 +42,7 @@ abstract class LastFmApiServiceBase {
         Artist artist = new Artist();
         for (int i = 0; i < artistNodeList.getLength(); i++) {
             Node node = artistNodeList.item(i);
-            if (node.getNodeType() == Node.ELEMENT_NODE) {
+            if (node.getNodeType() == ELEMENT_NODE) {
                 Element elm = (Element) node;
                 String textContent = elm.getTextContent();
                 switch (node.getNodeName()) {
