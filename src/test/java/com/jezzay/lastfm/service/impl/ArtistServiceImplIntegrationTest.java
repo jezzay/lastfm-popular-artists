@@ -1,6 +1,9 @@
 package com.jezzay.lastfm.service.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import com.jezzay.lastfm.domain.Artist;
 import com.jezzay.lastfm.domain.ArtistTrack;
@@ -23,7 +26,8 @@ public class ArtistServiceImplIntegrationTest {
     }
 
     @Test
-    public void findArtist_should_find_artist_based_on_mbid() throws ParserConfigurationException, SAXException, IOException {
+    public void findArtist_should_find_artist_based_on_mbid()
+            throws ParserConfigurationException, SAXException, IOException {
         Artist artist = this.artistService.findArtist("b071f9fa-14b0-4217-8e97-eb41da73f598");
         assertNotNull(artist);
         assertEquals("The Rolling Stones", artist.getName());

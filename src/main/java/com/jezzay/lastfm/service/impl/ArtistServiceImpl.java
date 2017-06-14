@@ -29,7 +29,9 @@ public class ArtistServiceImpl extends LastFmApiServiceBase implements ArtistSer
     }
 
     @Override
-    public List<ArtistTrack> findArtistTopTracks(String mbid, String pageNumber) throws IOException, ParserConfigurationException, SAXException {
+    public List<ArtistTrack> findArtistTopTracks(String mbid, String pageNumber)
+            throws IOException, ParserConfigurationException, SAXException {
+
         InputStream inputStream = connectToEndpoint(LastFmApiUtil.createArtistTopTracksUrl(mbid, pageNumber, apiKey()));
         Document document = parseXMLResponse(inputStream);
         Node topTracksNode = document.getElementsByTagName("toptracks").item(0);
@@ -58,13 +60,15 @@ public class ArtistServiceImpl extends LastFmApiServiceBase implements ArtistSer
             Node node = trackNode.item(i);
             if (node.getNodeType() == ELEMENT_NODE) {
                 Element elm = (Element) node;
-                String textContent = elm.getTextContent();
+                String textContent = escapeString(elm.getTextContent());
                 switch (node.getNodeName()) {
                     case "name":
                         artistTrack.setName(textContent);
                         break;
                     case "mbid":
                         artistTrack.setMbid(textContent);
+                        break;
+                    default:
                         break;
                 }
             }

@@ -20,7 +20,7 @@ import java.net.URL;
 abstract class LastFmApiServiceBase {
 
     String apiKey() {
-        return System.getenv("LAST_FM_API_KEY");
+        return System.getenv("LAST_FM_REMOTE_API_KEY");
     }
 
     InputStream connectToEndpoint(String url) throws IOException {
@@ -38,13 +38,17 @@ abstract class LastFmApiServiceBase {
         return documentBuilder.parse(inputStream);
     }
 
+    String escapeString(String data) {
+        return data != null ? data.replaceAll("\"", "") : "";
+    }
+
     Artist processArtistNode(NodeList artistNodeList) {
         Artist artist = new Artist();
         for (int i = 0; i < artistNodeList.getLength(); i++) {
             Node node = artistNodeList.item(i);
             if (node.getNodeType() == ELEMENT_NODE) {
                 Element elm = (Element) node;
-                String textContent = elm.getTextContent();
+                String textContent = escapeString(elm.getTextContent());
                 switch (node.getNodeName()) {
                     case "name":
                         artist.setName(textContent);
@@ -56,6 +60,8 @@ abstract class LastFmApiServiceBase {
                         if (elm.hasAttribute("size") && elm.getAttribute("size").equals("medium")) {
                             artist.setImageURL(textContent);
                         }
+                        break;
+                    default:
                         break;
                 }
             }

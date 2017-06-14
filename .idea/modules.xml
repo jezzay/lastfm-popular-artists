@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/lastfm-fe/lastfm-fe.iml" filepath="$PROJECT_DIR$/lastfm-fe/lastfm-fe.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lastfm-popular-artists.iml" filepath="$PROJECT_DIR$/.idea/modules/lastfm-popular-artists.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lastfm-popular-artists_main.iml" filepath="$PROJECT_DIR$/.idea/modules/lastfm-popular-artists_main.iml" group="lastfm-popular-artists" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lastfm-popular-artists_test.iml" filepath="$PROJECT_DIR$/.idea/modules/lastfm-popular-artists_test.iml" group="lastfm-popular-artists" />
