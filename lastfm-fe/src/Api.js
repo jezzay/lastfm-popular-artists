@@ -4,8 +4,8 @@ function topArtistByCountry(country, pageNumber = 1) {
         .then(toJSON)
 }
 
-function artistTopTracks(mbid) {
-    return fetch(`/api/artist/${mbid}/top-tracks/1/`, {accept: 'application/json'})
+function artistTopTracks(mbid, pageNumber = 1) {
+    return fetch(`/api/artist/${mbid}/top-tracks/${pageNumber}/`, {accept: 'application/json'})
         .then(mapHttpStatus)
         .then(toJSON)
 }

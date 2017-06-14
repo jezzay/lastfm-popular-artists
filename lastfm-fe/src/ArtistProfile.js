@@ -1,15 +1,19 @@
 import React, {Component} from "react";
 import Api from "./Api";
-class ArtistResult extends Component {
+import PaginationButtons from "./PaginationButtons";
+
+class ArtistProfile extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {results: [], statusMsg: ''};
+        this.state = {results: [], statusMsg: '', pageNumber: 1};
         this.fetchArtistTopTracks = this.fetchArtistTopTracks.bind(this);
+        this.onNext = this.onNext.bind(this);
+        this.onPrevious = this.onPrevious.bind(this);
     }
 
     fetchArtistTopTracks() {
-        Api.artistTopTracks(this.props.mbid).then((res) => {
+        Api.artistTopTracks(this.props.mbid, this.state.pageNumber).then((res) => {
             this.setState({results: res.data, statusMsg: ''});
         }, (err) => {
             console.error(err.response.then((reason) => {
@@ -17,6 +21,14 @@ class ArtistResult extends Component {
                 this.setState({results: [], statusMsg: reason.error})
             }));
         });
+    }
+
+    onNext() {
+        this.setState({pageNumber: this.state.pageNumber + 1}, this.fetchArtistTopTracks);
+    }
+
+    onPrevious() {
+        this.setState({pageNumber: this.state.pageNumber - 1}, this.fetchArtistTopTracks);
     }
 
     render() {
@@ -43,10 +55,15 @@ class ArtistResult extends Component {
                 </div>
                 <div className="col-xs-8">
                     {topTracks}
+                    <PaginationButtons
+                        includeNextButton={this.state.results.length > 0}
+                        includePreviousButton={this.state.pageNumber > 1}
+                        onNext={this.onNext}
+                        onPrevious={this.onPrevious}/>
                 </div>
             </div>
         )
     }
 }
 
-export default ArtistResult;
+export default ArtistProfile;

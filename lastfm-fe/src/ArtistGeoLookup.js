@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import Api from "./Api";
-import ArtistResult from "./ArtistResult";
+import ArtistProfile from "./ArtistProfile";
+import PaginationButtons from "./PaginationButtons";
 
 class ArtistGeoLookup extends Component {
     constructor() {
@@ -9,14 +10,8 @@ class ArtistGeoLookup extends Component {
         this.handleCountryUpdate = this.handleCountryUpdate.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.fetchArtists = this.fetchArtists.bind(this);
-        this.nextButton =
-            <button type="button" onClick={this.handleSubmit} name="next_page" className="geo-next-page btn btn-primary">
-                Next Page
-            </button>;
-        this.previousButton =
-            <button type="button" onClick={this.handleSubmit} name="previous_page" className="geo-next-page btn btn-secondary">
-                Previous Page
-            </button>
+        this.onNext = this.onNext.bind(this);
+        this.onPrevious = this.onPrevious.bind(this);
     }
 
     handleCountryUpdate(event) {
@@ -27,21 +22,16 @@ class ArtistGeoLookup extends Component {
         });
     }
 
+    onNext() {
+        this.setState({pageNumber: this.state.pageNumber + 1}, this.fetchArtists);
+    }
+
+    onPrevious() {
+        this.setState({pageNumber: this.state.pageNumber - 1}, this.fetchArtists);
+    }
+
     handleSubmit(event) {
-        console.log('submitted: ', this.state);
-        switch (event.target.name) {
-            case "geoLookup":
-                this.fetchArtists();
-                break;
-            case "next_page":
-                this.setState({pageNumber: this.state.pageNumber + 1}, this.fetchArtists);
-                break;
-            case "previous_page":
-                this.setState({pageNumber: this.state.pageNumber - 1}, this.fetchArtists);
-                break;
-            default:
-                break;
-        }
+        this.fetchArtists();
         event.preventDefault();
     }
 
@@ -65,17 +55,13 @@ class ArtistGeoLookup extends Component {
 
     render() {
         let resultDom;
-        let paginationBody;
         if (this.state.results.length > 0) {
             resultDom =
                 <div>
-                    {this.state.results.map(function (res,i) {
-                        return <ArtistResult key={res.mbid} name={res.name} imageURL={res.imageURL} mbid={res.mbid}/>;
+                    {this.state.results.map(function (res, i) {
+                        return <ArtistProfile key={res.mbid} name={res.name} imageURL={res.imageURL} mbid={res.mbid}/>;
                     })}
                 </div>;
-            paginationBody = this.state.pageNumber > 1 ?
-                <div>{this.previousButton}{this.nextButton}</div> :
-                <div>{this.nextButton}</div>
         } else {
             resultDom = <div>{this.state.statusMsg}</div>
         }
@@ -85,7 +71,7 @@ class ArtistGeoLookup extends Component {
                 <form name="geoLookup" onSubmit={this.handleSubmit} className="col-xs-4">
                     <p>Please enter a ISO 3166-1 country name</p>
                     <div className="form-group">
-                        <label for="country">Country</label>
+                        <label htmlFor="country">Country</label>
                         <input name="country" type="text"
                                value={this.state.country}
                                className="form-control"
@@ -101,7 +87,11 @@ class ArtistGeoLookup extends Component {
                 <div className="col-xs-8">
                     Results:
                     {resultDom}
-                    {paginationBody}
+                    <PaginationButtons
+                        includeNextButton={this.state.results.length > 0}
+                        includePreviousButton={this.state.pageNumber > 1}
+                        onNext={this.onNext}
+                        onPrevious={this.onPrevious}/>
                 </div>
             </div>
         );
