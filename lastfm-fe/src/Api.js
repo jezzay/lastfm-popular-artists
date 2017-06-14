@@ -4,6 +4,12 @@ function topArtistByCountry(country, pageNumber = 1) {
         .then(toJSON)
 }
 
+function artistTopTracks(mbid) {
+    return fetch(`/api/artist/${mbid}/top-tracks/1/`, {accept: 'application/json'})
+        .then(mapHttpStatus)
+        .then(toJSON)
+}
+
 function mapHttpStatus(response) {
     if (response.status >= 200 && response.status < 300) {
         return response;
@@ -18,5 +24,5 @@ function toJSON(response) {
     return response.json();
 }
 
-const API = {topArtistByCountry};
+const API = {topArtistByCountry, artistTopTracks};
 export default API;

@@ -38,13 +38,17 @@ abstract class LastFmApiServiceBase {
         return documentBuilder.parse(inputStream);
     }
 
+    String escapeString(String data) {
+        return data != null ? data.replaceAll("\"", "") : "";
+    }
+
     Artist processArtistNode(NodeList artistNodeList) {
         Artist artist = new Artist();
         for (int i = 0; i < artistNodeList.getLength(); i++) {
             Node node = artistNodeList.item(i);
             if (node.getNodeType() == ELEMENT_NODE) {
                 Element elm = (Element) node;
-                String textContent = elm.getTextContent();
+                String textContent = escapeString(elm.getTextContent());
                 switch (node.getNodeName()) {
                     case "name":
                         artist.setName(textContent);

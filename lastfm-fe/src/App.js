@@ -10,9 +10,11 @@ class App extends Component {
         <div className="App-header">
           <h2>Welcome to Last FM Artists lookup</h2>
         </div>
-        <p className="App-intro">
-            <ArtistGeoLookup/>
-        </p>
+        <div className="App-intro">
+            <div className="container-fluid">
+                <ArtistGeoLookup/>
+            </div>
+        </div>
       </div>
     );
   }

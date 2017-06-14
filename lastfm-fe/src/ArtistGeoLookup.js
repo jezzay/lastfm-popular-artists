@@ -10,11 +10,11 @@ class ArtistGeoLookup extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.fetchArtists = this.fetchArtists.bind(this);
         this.nextButton =
-            <button type="button" onClick={this.handleSubmit} name="next_page" className="geo-next-page">
+            <button type="button" onClick={this.handleSubmit} name="next_page" className="geo-next-page btn btn-primary">
                 Next Page
             </button>;
         this.previousButton =
-            <button type="button" onClick={this.handleSubmit} name="previous_page" className="geo-next-page">
+            <button type="button" onClick={this.handleSubmit} name="previous_page" className="geo-next-page btn btn-secondary">
                 Previous Page
             </button>
     }
@@ -69,8 +69,8 @@ class ArtistGeoLookup extends Component {
         if (this.state.results.length > 0) {
             resultDom =
                 <div>
-                    {this.state.results.map(function (res) {
-                        return <ArtistResult name={res.name} imageURL={res.imageURL} mbid={res.mbid}/>;
+                    {this.state.results.map(function (res,i) {
+                        return <ArtistResult key={res.mbid} name={res.name} imageURL={res.imageURL} mbid={res.mbid}/>;
                     })}
                 </div>;
             paginationBody = this.state.pageNumber > 1 ?
@@ -81,22 +81,24 @@ class ArtistGeoLookup extends Component {
         }
 
         return (
-            <div className="ArtistGeoLookup">
-                <form name="geoLookup" onSubmit={this.handleSubmit}>
+            <div className="ArtistGeoLookup col-xs-12">
+                <form name="geoLookup" onSubmit={this.handleSubmit} className="col-xs-4">
                     <p>Please enter a ISO 3166-1 country name</p>
-                    <label form="country">
-                        Country
-                        <input name="country" type="text" value={this.state.country}
+                    <div className="form-group">
+                        <label for="country">Country</label>
+                        <input name="country" type="text"
+                               value={this.state.country}
+                               className="form-control"
                                onChange={this.handleCountryUpdate}/>
-                    </label>
+                    </div>
                     <p>
-                        <button className="geo-submit">
+                        <button className="geo-submit btn btn-default">
                             Submit
                         </button>
                     </p>
                 </form>
 
-                <div>
+                <div className="col-xs-8">
                     Results:
                     {resultDom}
                     {paginationBody}
