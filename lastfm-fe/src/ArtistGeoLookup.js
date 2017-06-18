@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import Api from "./Api";
 import ArtistProfile from "./ArtistProfile";
 import PaginationButtons from "./PaginationButtons";
+import state from './AppState'
 
 class ArtistGeoLookup extends Component {
     constructor() {
@@ -39,8 +39,8 @@ class ArtistGeoLookup extends Component {
         // Start search after 3 characters
         if (this.state.country.length > 3) {
             this.setState({statusMsg: 'Loading...'});
-            Api.topArtistByCountry(this.state.country, this.state.pageNumber).then((res) => {
-                this.setState({results: res.data, statusMsg: ''});
+            state.topArtistByCountry(this.state.country, this.state.pageNumber).then((res) => {
+                this.setState({results: res, statusMsg: ''});
             }, (err) => {
                 err.response.then((reason) => {
                     console.log(`Failed because of ${reason.error}`);

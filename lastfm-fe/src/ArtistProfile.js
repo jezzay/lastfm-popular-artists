@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import Api from "./Api";
 import PaginationButtons from "./PaginationButtons";
+import state from "./AppState";
 
 class ArtistProfile extends Component {
 
@@ -13,8 +13,8 @@ class ArtistProfile extends Component {
     }
 
     fetchArtistTopTracks() {
-        Api.artistTopTracks(this.props.mbid, this.state.pageNumber).then((res) => {
-            this.setState({results: res.data, statusMsg: ''}, () => {
+        state.artistTopTracks(this.props.mbid, this.state.pageNumber).then((res) => {
+            this.setState({results: res, statusMsg: ''}, () => {
                 const $ = window.$;
                 const id = "#artistProfileModal" + this.props.mbid;
                 $(id).modal()
@@ -48,6 +48,8 @@ class ArtistProfile extends Component {
                     })}
                 </ul>
             </div>;
+        } else {
+            topTracks = <div>{this.state.statusMsg}</div>
         }
         return (
             <div className="container" style={containerStyle}>
