@@ -24,6 +24,10 @@ public class RequestHandler {
 
     void handleRequest(BufferedReader reader, OutputStreamWriter writer) throws IOException {
         IncomingApiHttpRequest request = processIncomingRequest(reader);
+        if (request.isStatusCheck()) {
+            writer.write(HttpResponseUtil.createSuccessHttpResponse("ok"));
+            return;
+        }
         if (!request.isApiRequest()) {
             writer.write(HttpResponseUtil.createNotFoundHttpResponse());
         } else {

@@ -1,0 +1,7 @@
+:80 {
+    index index.html
+    root /etc/caddy
+    gzip
+    log access.log
+    proxy /api/ localhost:8080
+}

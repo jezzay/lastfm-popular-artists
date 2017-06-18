@@ -28,6 +28,10 @@ public class IncomingApiHttpRequest {
         return this.path.startsWith("/api/");
     }
 
+    public boolean isStatusCheck() {
+        return this.path.startsWith("/api/status");
+    }
+
     public String getPath() {
         return this.path;
     }

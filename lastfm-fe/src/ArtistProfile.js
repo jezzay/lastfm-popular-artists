@@ -47,10 +47,10 @@ class ArtistProfile extends Component {
         }
         return (
             <div className="container" style={containerStyle}>
-                <div className="col-xs-1">
+                <div className="col-xs-3 col-sm-1">
                     <img onClick={this.fetchArtistTopTracks} src={this.props.imageURL} alt=""/>
                 </div>
-                <div className="col-xs-3">
+                <div className="col-xs-3 col-sm-1">
                     {this.props.name}
                 </div>
                 <div className="col-xs-8">

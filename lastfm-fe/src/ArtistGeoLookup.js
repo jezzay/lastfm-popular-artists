@@ -68,23 +68,24 @@ class ArtistGeoLookup extends Component {
 
         return (
             <div className="ArtistGeoLookup col-xs-12">
-                <form name="geoLookup" onSubmit={this.handleSubmit} className="col-xs-4">
+                <form name="geoLookup" onSubmit={this.handleSubmit}
+                      className="col-xs-12 col-sm-6 col-md-offset-2 col-md-5 col-lg-offset-2 col-lg-3">
                     <p>Please enter a ISO 3166-1 country name</p>
-                    <div className="form-group">
+                    <div className="form-group col-xs-8 col-sm-12">
                         <label htmlFor="country">Country</label>
                         <input name="country" type="text"
                                value={this.state.country}
                                className="form-control"
                                onChange={this.handleCountryUpdate}/>
                     </div>
-                    <p>
+                    <p className="col-xs-6 col-sm-12">
                         <button className="geo-submit btn btn-default">
                             Submit
                         </button>
                     </p>
                 </form>
 
-                <div className="col-xs-8">
+                <div className="col-xs-12 col-sm-6 col-md-2 col-lg-3">
                     Results:
                     {resultDom}
                     <PaginationButtons
